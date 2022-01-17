@@ -19,9 +19,9 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import TabThreeScreen from "../screens/TabThreeScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import CandidatesScreen from "../screens/CandidatesScreen";
+import SurveyScreen from "../screens/SurveyScreen";
 import {
   RootStackParamList,
   RootTabParamList,
@@ -81,15 +81,15 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Profile"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
+        name="Profile"
+        component={ProfileScreen}
+        options={({ navigation }: RootTabScreenProps<"Profile">) => ({
           title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
@@ -110,16 +110,16 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Candidates"
+        component={CandidatesScreen}
         options={{
           title: "Candidates",
           tabBarIcon: ({ color }) => <TabBarIcon name="group" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabThree"
-        component={TabThreeScreen}
+        name="Surveys"
+        component={SurveyScreen}
         options={{
           title: "Surveys",
           tabBarIcon: ({ color }) => (
@@ -128,8 +128,8 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabFour"
-        component={TabThreeScreen}
+        name="Elections"
+        component={SurveyScreen}
         options={{
           title: "Elections",
           tabBarIcon: ({ color }) => (
@@ -138,8 +138,8 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabFive"
-        component={TabThreeScreen}
+        name="Settings"
+        component={SurveyScreen}
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
