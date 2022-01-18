@@ -1,3 +1,4 @@
+import AuthenticationScreen from "../screens/AuthenticationScreen";
 /**
  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
  * https://reactnavigation.org/docs/getting-started
@@ -13,11 +14,12 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
+import { ColorSchemeName, Pressable, Button } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
+import ProfileEditor from "../screens/ProfileEditor";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CandidatesScreen from "../screens/CandidatesScreen";
@@ -51,8 +53,23 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const colorScheme = useColorScheme();
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Authentication"
+        component={AuthenticationScreen}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Button
+              onPress={() => navigation.navigate("ProfileEditor")}
+              title="Sign Up"
+            ></Button>
+          ),
+
+          headerShown: true,
+        })}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -65,6 +82,7 @@ function RootNavigator() {
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="ProfileEditor" component={ProfileEditor} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -94,6 +112,21 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
+              onPress={() => navigation.navigate("ProfileEditor")}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <FontAwesome
+                name="pencil"
+                size={25}
+                color={Colors[colorScheme].text}
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
+          headerLeft: () => (
+            <Pressable
               onPress={() => navigation.navigate("Modal")}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
@@ -103,7 +136,7 @@ function BottomTabNavigator() {
                 name="info-circle"
                 size={25}
                 color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
+                style={{ marginLeft: 15 }}
               />
             </Pressable>
           ),

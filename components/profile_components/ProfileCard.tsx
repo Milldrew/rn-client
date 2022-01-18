@@ -5,11 +5,11 @@ import { Video, AVPlaybackStatus } from "expo-av";
 import * as WebBrowser from "expo-web-browser";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
-import Colors from "../constants/Colors";
-import { MonoText } from "./StyledText";
-import { Text, View } from "./Themed";
+import Colors from "../../constants/Colors";
+import { MonoText } from "../StyledText";
+import { Text, View } from "../Themed";
 
-export default function ProfileCard({ path }: { path: string }) {
+export default function ProfileCard() {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
   return (
@@ -46,7 +46,7 @@ export default function ProfileCard({ path }: { path: string }) {
           ref={video}
           style={styles.video}
           source={{
-            uri: "https://v16-webapp.tiktok.com/fe97780afc24b53046dc6bc65dd4bc53/61e34c6b/video/tos/useast5/tos-useast5-pve-0068-tx/86567f1e3b6441acbfca7910eb6ac6a9/?a=1988&br=2576&bt=1288&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=Yu12_FGgkag3-I&l=2022011516361201022307814800C36C99&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=ajpyZzc6ZjM7OjMzZzczNEApZmdoNTk0Ojw3N2VlNjs4M2duci82cjRvcGBgLS1kMS9zczI1LWAtXy1fMjVhX140YC46Yw%3D%3D&vl=&vr=",
+            uri: "https://v16-webapp.tiktok.com/1738dee2d093ed60ba63252c272abfe0/61e638ca/video/tos/useast5/tos-useast5-pve-0068-tx/9527ccbafe694b3d82f4e33e72c2f464/?a=1988&br=2670&bt=1335&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=Yu12_FGgkag3-I&l=20220117214920010223021028272F515C&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=M3hsNDg6Zm82OTMzZzczNEApOGQ7aDM6N2RoNzk1M2Y0NmctNXEwcjRfbi1gLS1kMS9zc2BeLmMvNGNeMS4uLWFiYjM6Yw%3D%3D&vl=&vr=",
           }}
           useNativeControls
           resizeMode="contain"

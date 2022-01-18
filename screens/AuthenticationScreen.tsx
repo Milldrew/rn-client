@@ -4,15 +4,13 @@ import ProfileCard from "../components/profile_components/ProfileCard";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
-export default function ProfileScreen({
+export default function AuthenticationScreen({
   navigation,
 }: RootTabScreenProps<"Profile">) {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <ProfileCard />
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Text>Sign In screen</Text>
+    </View>
   );
 }
 
