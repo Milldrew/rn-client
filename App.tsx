@@ -1,3 +1,4 @@
+import store from "./redux/store";
 import SplashScreenAnimation from "./animations/SplashScreenAnimation";
 import { Text, View } from "react-native";
 import texts from "./style_sheets/texts";

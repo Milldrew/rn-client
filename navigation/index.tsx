@@ -1,3 +1,6 @@
+import SignUpModal from "../screens/SignUpModal";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "../redux/store";
 import AuthenticationScreen from "../screens/AuthenticationScreen";
 /**
  * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
@@ -37,12 +40,14 @@ export default function Navigation({
   colorScheme: ColorSchemeName;
 }) {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
+    <ReduxProvider store={store}>
+      <NavigationContainer
+        linking={LinkingConfiguration}
+        theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      >
+        <RootNavigator />
+      </NavigationContainer>
+    </ReduxProvider>
   );
 }
 
@@ -62,7 +67,7 @@ function RootNavigator() {
         options={({ navigation }) => ({
           headerRight: () => (
             <Button
-              onPress={() => navigation.navigate("ProfileEditor")}
+              onPress={() => navigation.navigate("SignUpModal")}
               title="Sign Up"
             ></Button>
           ),
@@ -83,6 +88,7 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="ProfileEditor" component={ProfileEditor} />
+        <Stack.Screen name="SignUpModal" component={SignUpModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

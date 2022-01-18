@@ -8,7 +8,7 @@ import { Text, View } from "../components/Themed";
 import AuthTextInput from "../components/AuthTextInput";
 import { RootTabScreenProps } from "../types";
 
-export default function AuthenticationScreen({
+export default function SignUpModal({
   navigation,
 }: RootTabScreenProps<"Profile">) {
   const user = useSelector((state: RootState) => state.user.value);
@@ -17,9 +17,12 @@ export default function AuthenticationScreen({
   return (
     <View style={styles.container}>
       <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
+      <AuthTextInput placeholder="First Name"></AuthTextInput>
+      <AuthTextInput placeholder="Last Name"></AuthTextInput>
+      <AuthTextInput placeholder="Phone Number"></AuthTextInput>
       <AuthTextInput placeholder="Email"></AuthTextInput>
       <AuthTextInput placeholder="Password"></AuthTextInput>
-      <AuthButton>Sign In</AuthButton>
+      <AuthButton>Sign Up</AuthButton>
     </View>
   );
 }
