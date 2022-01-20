@@ -5,8 +5,8 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import { signUpUserThunk, signUpUser } from "../redux/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, setFirstName } from "../redux/userSlice";
 import { useState } from "react";
 import ProfileCard from "../components/profile_components/ProfileCard";
 import { Text, View } from "../components/Themed";
@@ -18,14 +18,11 @@ export default function SignUpModal({
 }: RootTabScreenProps<"Profile">) {
   let firstName = useSelector((state: RootState) => state.user);
   firstName = JSON.stringify(firstName);
-  console.debug(firstName);
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState({});
   const [authButtonColor, setAuthButtonColor] = useState("#da2");
-  console.log(newUser);
-  function handleSubmit(e) {
-    console.log(newUser);
-    dispatch({ type: "user/signUpUser", payload: newUser });
+  async function handleSubmit(e) {
+    const payload = await dispatch(signUpUserThunk(newUser)).unwrap();
     firstName = JSON.stringify(firstName);
   }
   return (
@@ -59,7 +56,10 @@ export default function SignUpModal({
             placeholder="Password"
           ></AuthTextInput>
           <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
-          {/*}<Text style={{ fontSize: 30 }}>{firstName}</Text>*/}
+
+          {/*
+            <Text style={{ fontSize: 30 }}>{firstName}</Text>
+         */}
         </View>
       </KeyboardAvoidingView>
     </ScrollView>

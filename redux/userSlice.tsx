@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
   userId: string;
@@ -24,6 +24,34 @@ const initialState: UserState = {
   token: "",
 };
 
+export const signUpUserThunk = createAsyncThunk(
+  "user/signUpUser",
+  async (userData, thunkApi) => {
+    const { getState } = thunkApi;
+    // realtime database name
+    //https://quantum-hash-330314-default-rtdb.firebaseio.com/
+    fetch(
+      "https://quantum-hash-330314-default-rtdb.firebaseio.com/VoterRegistrationData.json"
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+
+    fetch(
+      "https://quantum-hash-330314-default-rtdb.firebaseio.com/users.json",
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+    console.log("thunk again");
+    return userData;
+  }
+);
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -40,6 +68,11 @@ export const userSlice = createSlice({
     incrementByAmount: (state, action: PayloadAction<number>) => {
       state.value += action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(signUpUserThunk.fulfilled, (state, action) => {
+      Object.assign(state, action.payload);
+    });
   },
 });
 
