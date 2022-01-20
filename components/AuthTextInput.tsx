@@ -14,6 +14,7 @@ export default function AuthTextInput(props: TextInputProps) {
 }
 const styles = StyleSheet.create({
   input: {
+    color: "#030303",
     backgroundColor: "#fefefe",
     marginVertical: 4,
     paddingVertical: 9,

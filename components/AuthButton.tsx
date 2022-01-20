@@ -16,8 +16,9 @@ export default function AuthButton(props: TextProps) {
       style={[styles.pressable, { backgroundColor: buttonBackgroundColor }]}
       onPressOut={ButtonPressOutAnimation}
       onPressIn={ButtonPressInAnimation}
+      {...props}
     >
-      <Text style={[styles.authButton]} {...props} />
+      <Text style={[styles.authButton]} children={props.children} />
     </Pressable>
   );
 }
