@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     paddingVertical: 9,
     paddingHorizontal: 9,
-    fontSize: 25,
+    fontSize: 26,
     width: "80%",
     borderWidth: 1,
   },

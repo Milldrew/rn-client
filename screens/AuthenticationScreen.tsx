@@ -1,5 +1,10 @@
 import AuthButton from "../components/AuthButton";
-import { Button, ScrollView, StyleSheet } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Button,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement, setFirstName } from "../redux/userSlice";
 
@@ -15,18 +20,25 @@ export default function AuthenticationScreen({
   const firstName = useSelector((state: RootState) => state.user.firstName);
   const dispatch = useDispatch();
   return (
-    <View style={styles.container}>
-      <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
-      <AuthTextInput placeholder="Email"></AuthTextInput>
-      <AuthTextInput placeholder="Password"></AuthTextInput>
-      <AuthButton>Sign In</AuthButton>
-    </View>
+    <ScrollView>
+      <KeyboardAvoidingView behavior="position">
+        <View style={styles.container}>
+          <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
+          <AuthTextInput placeholder="Email"></AuthTextInput>
+          <AuthTextInput placeholder="Password"></AuthTextInput>
+          <AuthButton onPress={() => navigation.navigate("Root")}>
+            Sign In
+          </AuthButton>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
+    paddingBottom: 130,
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",

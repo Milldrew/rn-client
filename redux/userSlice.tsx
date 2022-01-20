@@ -2,30 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
   userId: string;
-  value: number;
+  voterId: string;
   firstName: string;
-  middleName: string;
+  zipCode: number;
+  age: number;
   lastName: string;
   email: string;
+  password: string;
   token: string;
 }
 
-const secondState: UserState = {
-  value: 3,
-  userId: "",
-  firstName: "SECOND STATE",
-  middleName: "hi",
-  lastName: "",
-  email: "",
-  token: "",
-};
 const initialState: UserState = {
-  value: 3,
   userId: "",
-  firstName: "hi",
-  middleName: "hi",
+  voterId: "",
+  firstName: "",
+  zipCode: NaN,
+  age: NaN,
   lastName: "",
   email: "",
+  password: "",
   token: "",
 };
 

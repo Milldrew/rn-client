@@ -1,5 +1,10 @@
 import AuthButton from "../components/AuthButton";
-import { Button, ScrollView, StyleSheet } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Button,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement, setFirstName } from "../redux/userSlice";
 import { useState } from "react";
@@ -24,57 +29,55 @@ export default function SignUpModal({
     firstName = JSON.stringify(firstName);
   }
   return (
-    <View style={styles.container}>
-      <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
-      <AuthTextInput
-        onChangeText={(e) =>
-          dispatch({ type: "user/setFirstName", payload: newUser })
-        }
-        placeholder="First Name"
-      ></AuthTextInput>
-      <AuthTextInput
-        onChangeText={(e) => setNewUser({ ...newUser, middleName: e })}
-        placeholder="Middle Name"
-      ></AuthTextInput>
-      <AuthTextInput
-        onChangeText={(e) => setNewUser({ ...newUser, lastName: e })}
-        placeholder="Last Name"
-      ></AuthTextInput>
-      <AuthTextInput
-        onChangeText={(e) => setNewUser({ ...newUser, email: e })}
-        placeholder="Email"
-      ></AuthTextInput>
-      <AuthTextInput
-        secureTextEntry
-        onChangeText={(e) => setNewUser({ ...newUser, password: e })}
-        placeholder="Password"
-      ></AuthTextInput>
-      <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
-      <Text style={{ fontSize: 30 }}>{firstName}</Text>
-    </View>
+    <ScrollView>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={10}>
+        <View style={styles.container}>
+          <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
+          <AuthTextInput
+            onChangeText={(e) => setNewUser({ ...newUser, firstName: e })}
+            placeholder="First Name"
+          ></AuthTextInput>
+          <AuthTextInput
+            onChangeText={(e) => setNewUser({ ...newUser, lastName: e })}
+            placeholder="Last Name"
+          ></AuthTextInput>
+          <AuthTextInput
+            onChangeText={(e) => setNewUser({ ...newUser, age: e })}
+            placeholder="Age"
+          ></AuthTextInput>
+          <AuthTextInput
+            onChangeText={(e) => setNewUser({ ...newUser, zipCode: e })}
+            placeholder="Zip Code (5 digits)"
+          ></AuthTextInput>
+          <AuthTextInput
+            onChangeText={(e) => setNewUser({ ...newUser, email: e })}
+            placeholder="Email"
+          ></AuthTextInput>
+          <AuthTextInput
+            secureTextEntry
+            onChangeText={(e) => setNewUser({ ...newUser, password: e })}
+            placeholder="Password"
+          ></AuthTextInput>
+          <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
+          {/*}<Text style={{ fontSize: 30 }}>{firstName}</Text>*/}
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  textInputs: {
+    paddingTop: 40,
+    flex: 1,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
   container: {
     paddingTop: 30,
+    paddingBottom: 70,
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  onSubmitPressable: {
-    marginVertical: 30,
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
 });
