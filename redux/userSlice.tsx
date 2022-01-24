@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User, SignUpPayload } from "./userTypes";
 
 export interface UserState {
   userId: string;
