@@ -1,18 +1,18 @@
-import { StyleSheet } from "react-native";
-
+import CandidateCard from "../components/candidates_components/CandidateCard";
+import CandidateCardInfo from "../components/candidates_components/CandidateCardInfo";
+import { ScrollView, StyleSheet } from "react-native";
+import layout from "../constants/Layout";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+      <CandidateCardInfo
+        candidateName={"Mike Crapo"}
+        candidatesElection={"United States Senate"}
       />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      {/*<CandidateCard/>*/}
     </View>
   );
 }
