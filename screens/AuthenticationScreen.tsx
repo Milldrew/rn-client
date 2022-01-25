@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthButton from "../components/AuthButton";
 import {
   KeyboardAvoidingView,
@@ -27,6 +27,15 @@ export default function AuthenticationScreen({
   const user = useSelector((state: RootState) => state.user);
   const firstName = useSelector((state: RootState) => state.user.firstName);
   const dispatch = useDispatch();
+  /*NAVIGATE TO APP IF ALREADY AUTHENTICATED*/
+  useEffect(() => {
+    if (!!user.localId) {
+      console.log("AUTHENTICATED");
+      navigation.navigate("Root");
+    } else {
+      console.log("NOT AUTHENTICATED");
+    }
+  }, [user]);
   return (
     <ScrollView>
       <KeyboardAvoidingView behavior="position">

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { signUpUserThunk, signUpUser } from "../redux/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileCard from "../components/profile_components/ProfileCard";
 import { Text, View } from "../components/Themed";
 import AuthTextInput from "../components/AuthTextInput";
@@ -16,15 +16,23 @@ import { RootTabScreenProps } from "../types";
 export default function SignUpModal({
   navigation,
 }: RootTabScreenProps<"Profile">) {
-  let firstName = useSelector((state: RootState) => state.user);
-  firstName = JSON.stringify(firstName);
+  let user = useSelector((state: RootState) => state.user);
+  user = JSON.stringify(user);
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState({});
   const [authButtonColor, setAuthButtonColor] = useState("#da2");
   async function handleSubmit(e) {
     const payload = await dispatch(signUpUserThunk(newUser)).unwrap();
-    firstName = JSON.stringify(firstName);
+    user = JSON.stringify(user);
   }
+  useEffect(() => {
+    if (!!user.localId) {
+      console.log("AUTHENTICATED");
+      navigation.navigate("Root");
+    } else {
+      console.log("NOT AUTHENTICATED");
+    }
+  }, [user]);
   return (
     <ScrollView>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={10}>
@@ -45,7 +53,7 @@ export default function SignUpModal({
           ></AuthTextInput>
           <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
 
-          <Text style={{ fontSize: 20 }}>{firstName}</Text>
+          <Text style={{ fontSize: 20 }}>{user}</Text>
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
