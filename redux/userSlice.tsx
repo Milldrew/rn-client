@@ -1,3 +1,4 @@
+import createAuthAlert from "../components/AuthAlert";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User, SignUpPayload } from "./userTypes";
 
@@ -166,13 +167,18 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signUpUserThunk.rejected, (state, action) => {
-      console.log("HELLO FROM REJECTED");
-      console.log(action.payload);
-      return Object.assign(state, { error: action.payload });
+    builder.addCase(signInUserThunk.rejected, (state, action) => {
+      createAuthAlert("Error", action.payload);
+      Object.assign(state, { error: action.payload });
     });
     builder.addCase(signInUserThunk.fulfilled, (state, action) => {
       Object.assign(state, action.payload);
+    });
+    builder.addCase(signUpUserThunk.rejected, (state, action) => {
+      console.log("HELLO FROM REJECTED");
+      createAuthAlert("Error", action.payload);
+      console.log(action.payload);
+      return Object.assign(state, { error: action.payload });
     });
     builder.addCase(signUpUserThunk.fulfilled, (state, action) => {
       Object.assign(state, action.payload);
