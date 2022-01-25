@@ -24,6 +24,7 @@ const initialState: UserState = {
   password: "",
   token: "",
 };
+// ======================================SIGN UP THUNK START
 export const signUpUserThunk = createAsyncThunk(
   "user/signUpUser",
   async (userData, thunkApi) => {
@@ -78,9 +79,9 @@ export const signUpUserThunk = createAsyncThunk(
     }
     /*Make User data 111259718*/
     const postUserPayload = await fetch(
-      "https://quantum-hash-330314-default-rtdb.firebaseio.com/users.json",
+      `https://quantum-hash-330314-default-rtdb.firebaseio.com/users/${userData.localId}.json`,
       {
-        method: "Post",
+        method: "Put",
         headers: {
           "Content-Type": "application/json",
         },
@@ -96,6 +97,61 @@ export const signUpUserThunk = createAsyncThunk(
       `USERDATA GOIN INTO DISK SPACE DATABASE ${JSON.stringify(userData)}`
     );
     return userData;
+  }
+);
+export const signInUserThunk = createAsyncThunk(
+  "user/signInUser",
+  async (signInData, thunkApi) => {
+    let retrievedUserData;
+    const { getState, rejectWithValue } = thunkApi;
+    /*FIRST CHECK THE VOTER REGISTRATION INFORMATION */
+    try {
+      /* Sign In*/
+
+      const authRes = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8yqhlFD9mOTN368yRdT1ggtAEmG2wW7A",
+        {
+          method: "Post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: signInData.email,
+            password: signInData.password,
+            returnSecureToken: true,
+          }),
+        }
+      );
+      const authData = await authRes
+        .json()
+        .catch((error) => console.error(error));
+      console.log({ authData });
+      if (authData.error) {
+        console.error("IT WAS ME AUTH DATA ERROR");
+        return rejectWithValue(authData.error.message);
+      }
+      retrievedUserData = authData;
+    } catch (error) {
+      console.error(error);
+    }
+    /*Make User data 111259718*/
+    try {
+      const postUserPayload = await fetch(
+        `https://quantum-hash-330314-default-rtdb.firebaseio.com/users/${retrievedUserData.localId}.json`
+      );
+      const jsonPayload = await postUserPayload.json();
+      console.log({ jsonPayload });
+      console.log("thunk again");
+      const { name: dbUserId } = jsonPayload;
+      console.log(
+        ` PAYLOAD FROM REQUEST TO DB WITH LOCAL ID  ${JSON.stringify(
+          jsonPayload
+        )}`
+      );
+      return jsonPayload;
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 export const userSlice = createSlice({
@@ -114,6 +170,9 @@ export const userSlice = createSlice({
       console.log("HELLO FROM REJECTED");
       console.log(action.payload);
       return Object.assign(state, { error: action.payload });
+    });
+    builder.addCase(signInUserThunk.fulfilled, (state, action) => {
+      Object.assign(state, action.payload);
     });
     builder.addCase(signUpUserThunk.fulfilled, (state, action) => {
       Object.assign(state, action.payload);

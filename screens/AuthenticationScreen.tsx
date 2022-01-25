@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AuthButton from "../components/AuthButton";
 import {
   KeyboardAvoidingView,
@@ -6,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, setFirstName } from "../redux/userSlice";
+import { signInUserThunk } from "../redux/userSlice";
 
 import ProfileCard from "../components/profile_components/ProfileCard";
 import { Text, View } from "../components/Themed";
@@ -16,7 +17,14 @@ import { RootTabScreenProps } from "../types";
 export default function AuthenticationScreen({
   navigation,
 }: RootTabScreenProps<"Profile">) {
-  const user = useSelector((state: RootState) => state.user.value);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  async function handleSubmit(e) {
+    const payload = await dispatch(
+      signInUserThunk({ email, password })
+    ).unwrap();
+  }
+  const user = useSelector((state: RootState) => state.user);
   const firstName = useSelector((state: RootState) => state.user.firstName);
   const dispatch = useDispatch();
   return (
@@ -24,11 +32,17 @@ export default function AuthenticationScreen({
       <KeyboardAvoidingView behavior="position">
         <View style={styles.container}>
           <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
-          <AuthTextInput placeholder="Email"></AuthTextInput>
-          <AuthTextInput placeholder="Password"></AuthTextInput>
-          <AuthButton onPress={() => navigation.navigate("Root")}>
-            Sign In
-          </AuthButton>
+          <AuthTextInput
+            onChangeText={setEmail}
+            placeholder="Email"
+          ></AuthTextInput>
+          <AuthTextInput
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholder="Password"
+          ></AuthTextInput>
+          <AuthButton onPress={() => handleSubmit()}>Sign In</AuthButton>
+          <Text>{JSON.stringify(user)}</Text>
         </View>
       </KeyboardAvoidingView>
     </ScrollView>

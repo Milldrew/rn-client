@@ -45,7 +45,7 @@ export default function SignUpModal({
           ></AuthTextInput>
           <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
 
-          <Text style={{ fontSize: 30 }}>{firstName}</Text>
+          <Text style={{ fontSize: 20 }}>{firstName}</Text>
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
