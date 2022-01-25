@@ -31,20 +31,8 @@ export default function SignUpModal({
         <View style={styles.container}>
           <Text style={{ marginBottom: 20, fontSize: 99 }}>🗳</Text>
           <AuthTextInput
-            onChangeText={(e) => setNewUser({ ...newUser, firstName: e })}
-            placeholder="First Name"
-          ></AuthTextInput>
-          <AuthTextInput
-            onChangeText={(e) => setNewUser({ ...newUser, lastName: e })}
-            placeholder="Last Name"
-          ></AuthTextInput>
-          <AuthTextInput
-            onChangeText={(e) => setNewUser({ ...newUser, age: e })}
-            placeholder="Age"
-          ></AuthTextInput>
-          <AuthTextInput
-            onChangeText={(e) => setNewUser({ ...newUser, zipCode: e })}
-            placeholder="Zip Code (5 digits)"
+            onChangeText={(e) => setNewUser({ ...newUser, voterId: e })}
+            placeholder="Voter ID"
           ></AuthTextInput>
           <AuthTextInput
             onChangeText={(e) => setNewUser({ ...newUser, email: e })}
@@ -57,9 +45,7 @@ export default function SignUpModal({
           ></AuthTextInput>
           <AuthButton onPress={(e) => handleSubmit(e)}>Sign Up</AuthButton>
 
-          {/*
-            <Text style={{ fontSize: 30 }}>{firstName}</Text>
-         */}
+          <Text style={{ fontSize: 30 }}>{firstName}</Text>
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
