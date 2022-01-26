@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
   candidatesImage: {
     width: layout.window.width * 0.8,
     height: layout.window.width * 0.8,
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   candidatesName: {
     fontWeight: "400",

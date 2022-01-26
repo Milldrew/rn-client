@@ -1,3 +1,4 @@
+import Layout from "../constants/Layout";
 import AuthButton from "../components/AuthButton";
 import {
   KeyboardAvoidingView,
@@ -73,5 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
+    height: Layout.window.height,
   },
 });

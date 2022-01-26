@@ -10,14 +10,12 @@ export default function ModalScreen() {
     <>
       <View style={styles.container}></View>
       <View style={styles.inputs}>
-        <TextInput
-          style={styles.input}
-          placeholder="Change Your Voter Registration Name"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Choose a URL for your profile image"
-        />
+        <TextInput style={styles.input} placeholder="About Me" />
+        <TextInput style={styles.input} placeholder="Profile Image URL" />
+        <TextInput style={styles.input} placeholder="Facebook URL" />
+        <TextInput style={styles.input} placeholder="Twitter URL" />
+        <TextInput style={styles.input} placeholder="TikTok URL" />
+        <TextInput style={styles.input} placeholder="YouTube URL" />
       </View>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </>

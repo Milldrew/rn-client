@@ -1,3 +1,5 @@
+import Layout from "../constants/Layout";
+import { setFirstName, setLastName } from "../redux/profileSlice";
 import { useEffect, useState } from "react";
 import AuthButton from "../components/AuthButton";
 import {
@@ -31,6 +33,8 @@ export default function AuthenticationScreen({
   useEffect(() => {
     if (!!user.localId) {
       console.log("AUTHENTICATED");
+      dispatch(setFirstName(user.firstName));
+      dispatch(setLastName(user.lastName));
       navigation.navigate("Root");
     } else {
       console.log("NOT AUTHENTICATED");
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
+    height: Layout.window.height,
   },
   title: {
     fontSize: 20,
