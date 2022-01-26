@@ -2,6 +2,9 @@ const tintColorLight = "#da2";
 const tintColorDark = "#da2";
 
 export default {
+  neutral: {
+    forContrast: "#676767",
+  },
   light: {
     text: "#000",
     background: "#eaeaea",

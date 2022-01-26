@@ -19,6 +19,7 @@ import { RootTabScreenProps } from "../types";
 export default function AuthenticationScreen({
   navigation,
 }: RootTabScreenProps<"Profile">) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   async function handleSubmit(e) {
@@ -28,7 +29,6 @@ export default function AuthenticationScreen({
   }
   const user = useSelector((state: RootState) => state.user);
   const firstName = useSelector((state: RootState) => state.user.firstName);
-  const dispatch = useDispatch();
   /*NAVIGATE TO APP IF ALREADY AUTHENTICATED*/
   useEffect(() => {
     if (!!user.localId) {

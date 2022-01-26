@@ -64,15 +64,15 @@ export type Profile = {
 };
 
 const profileInitialState: Profile = {
-  aboutMe: "I am a new user.",
-  firstName: "",
-  lastName: "",
+  aboutMe: "Press the pencil in the upper right",
+  firstName: "Andrew",
+  lastName: "Miller",
   profileImageURL:
-    "https://cdn1.iconfinder.com/data/icons/app-user-interface-glyph/64/user_man_user_interface_app_person-512.png",
-  facebook: "",
-  twitter: "",
-  youTube: "",
-  tikTok: "",
+    "https://miro.medium.com/fit/c/262/262/1*Yv52BZxhL5VV_1vYrrLXbA.png",
+  facebook: "https://facebook.com",
+  twitter: "https://twitter.com",
+  youTube: "https://youtube.com",
+  tikTok: "https://tiktok.com",
   isCandidate: false,
   electionName: "",
   endorsed: [],
@@ -80,58 +80,12 @@ const profileInitialState: Profile = {
 };
 
 export const editProfileThunk = createAsyncThunk(
-  "profile/editProfile",
-  async (signInData, thunkApi) => {
-    let retrievedUserData;
+  "profile/editProfileThunk",
+  async (profileData, thunkApi) => {
+    console.log("HELLO FROM PROFILE THUNK");
     const { getState, rejectWithValue } = thunkApi;
-    /*FIRST CHECK THE VOTER REGISTRATION INFORMATION */
-    try {
-      /* Sign In*/
-
-      const authRes = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB8yqhlFD9mOTN368yRdT1ggtAEmG2wW7A",
-        {
-          method: "Post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: signInData.email,
-            password: signInData.password,
-            returnSecureToken: true,
-          }),
-        }
-      );
-      const authData = await authRes
-        .json()
-        .catch((error) => console.error(error));
-      console.log({ authData });
-      if (authData.error) {
-        console.error("IT WAS ME AUTH DATA ERROR");
-        return rejectWithValue(authData.error.message);
-      }
-      retrievedUserData = authData;
-    } catch (error) {
-      console.error(error);
-    }
-    /*Make User data 111259718*/
-    try {
-      const postUserPayload = await fetch(
-        `https://quantum-hash-330314-default-rtdb.firebaseio.com/users/${retrievedUserData.localId}.json`
-      );
-      const jsonPayload = await postUserPayload.json();
-      console.log({ jsonPayload });
-      console.log("thunk again");
-      const { name: dbUserId } = jsonPayload;
-      console.log(
-        ` PAYLOAD FROM REQUEST TO DB WITH LOCAL ID  ${JSON.stringify(
-          jsonPayload
-        )}`
-      );
-      return jsonPayload;
-    } catch (error) {
-      console.error(error);
-    }
+    console.log({ profileData });
+    return profileData;
   }
 );
 
@@ -155,6 +109,8 @@ export const profileSlice = createSlice({
       Object.assign(state, { error: action.payload });
     });
     builder.addCase(editProfileThunk.fulfilled, (state, action) => {
+      console.log("hello from fulfiled");
+      console.log(JSON.stringify(action.payload));
       Object.assign(state, action.payload);
     });
   },

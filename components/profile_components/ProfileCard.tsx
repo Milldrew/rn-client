@@ -1,19 +1,14 @@
+import Layout from "../../constants/Layout";
 import * as React from "react";
-import { Button } from "react-native";
-import { Video, AVPlaybackStatus } from "expo-av";
 
 import * as WebBrowser from "expo-web-browser";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet } from "react-native";
 
 import Colors from "../../constants/Colors";
-import { MonoText } from "../StyledText";
 import { Text, View } from "../Themed";
 import SocialMediaIcons from "./SocialMediaIcons";
 
 export default function ProfileCard(props) {
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
-
   return (
     <View style={styles.profileBackground}>
       <Image
@@ -24,19 +19,41 @@ export default function ProfileCard(props) {
       />
 
       <Text
-        style={styles.getStartedText}
+        style={styles.userName}
         lightColor="rgba(0,0,0,0.8)"
         darkColor="rgba(255,255,255,0.8)"
       >
         {`${props.profileData.firstName} ${props.profileData.lastName}`}
       </Text>
-      <SocialMediaIcons />
-      <View style={styles.userStatusContainer}></View>
+      <Text
+        style={styles.userStatus}
+        lightColor={Colors.light.tint}
+        darkColor={Colors.dark.tint}
+      >
+        User Type: {props.profileData.isCandidate ? "Candidate" : "Voter"}
+      </Text>
+      <SocialMediaIcons profileData={props.profileData} />
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+      <View style={styles.aboutMeContainer}>
+        <Text
+          style={styles.aboutMeHeader}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)"
+        >
+          About Me:
+        </Text>
+        <View style={styles.aboutMeContentContainer}>
+          <Text style={styles.aboutMeContent}>
+            {"\n"}
+
+            {props.profileData.aboutMe}
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -50,71 +67,60 @@ function handleHelpPress() {
 const styles = StyleSheet.create({
   profileBackground: {
     alignItems: "center",
-    marginHorizontal: 50,
     width: "100%",
+    height: Layout.window.height,
   },
-  userStatusContainer: {
-    alignItems: "flex-start",
-    marginHorizontal: 50,
-    width: "100%",
+  aboutMeContent: {
+    marginTop: 10,
+    fontSize: 20,
+    textAlign: "left",
   },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  userStatusText: {
-    fontWeight: "normal",
-    fontSize: 17,
-    textAlign: "center",
-    paddingLeft: 20,
-  },
-  getStartedText: {
+  aboutMeHeader: {
     marginTop: 10,
     fontWeight: "bold",
-    fontSize: 17,
-    lineHeight: 24,
+    fontSize: 24,
     textAlign: "center",
   },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
+  userStatus: {
+    marginTop: 10,
+    fontSize: 14,
+    textAlign: "left",
   },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
+  userName: {
+    marginTop: 10,
+    fontWeight: "bold",
+    fontSize: 24,
     textAlign: "center",
   },
-  profileImage: { width: 150, height: 150, borderRadius: 100 },
+  profileImage: {
+    width: Layout.window.width * 0.5,
+    height: Layout.window.width * 0.5,
+    borderWidth: 1,
+    borderRadius: 120,
+  },
   separator: {
     marginVertical: 30,
     height: 1,
     width: "100%",
   },
-  videoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1",
-    borderRadius: 10,
+  aboutMeContentContainer: {
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    backgroundColor: Colors.neutral.forContrast,
+    width: "100%",
+    borderRadius: 20,
+    textAlign: "left",
+  },
+  aboutMeContainer: {
+    alignItems: "flex-start",
+    backgroundColor: Colors.neutral.forContrast,
+    width: "100%",
+    padding: 20,
+    marginHorizontal: 20,
+    borderRadius: 20,
   },
   container: {
-    flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-  },
-  video: {
-    alignSelf: "center",
-    width: 320,
-    height: 200,
-    borderRadius: 8,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

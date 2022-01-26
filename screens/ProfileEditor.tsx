@@ -1,43 +1,80 @@
+import { editProfileThunk } from "../redux/profileSlice";
+import SubmitButton from "../components/AuthButton.tsx";
+import Layout from "../constants/Layout";
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { TextInput, Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import OneLineTextInput from "../components/profile_components/OneLineTextInput";
+import ProfileSwitch from "../components/profile_components/ProfileSwitch";
 
 import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { TextInput, Text, View } from "../components/Themed";
 
 export default function ModalScreen() {
+  const [newProfileData, setNewProfileData] = useState({});
+  const profile = useSelector((state: RootState) => state.profile);
+  const dispatch = useDispatch();
+  async function submitData() {
+    setNewProfileData(newProfileData);
+    console.log("hello");
+    console.log(JSON.stringify(newProfileData));
+
+    try {
+      await dispatch(editProfileThunk(newProfileData));
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <>
       <View style={styles.container}></View>
       <View style={styles.inputs}>
-        <TextInput style={styles.input} placeholder="About Me" />
-        <TextInput style={styles.input} placeholder="Profile Image URL" />
-        <TextInput style={styles.input} placeholder="Facebook URL" />
-        <TextInput style={styles.input} placeholder="Twitter URL" />
-        <TextInput style={styles.input} placeholder="TikTok URL" />
-        <TextInput style={styles.input} placeholder="YouTube URL" />
+        <OneLineTextInput
+          onChangeText={(e) => Object.assign(newProfileData, { aboutMe: e })}
+          placeholder="About me"
+        />
+        <OneLineTextInput
+          onChangeText={(e) =>
+            Object.assign(newProfileData, { profileImageURL: e })
+          }
+          placeholder="Profile Image URL"
+        />
+        <OneLineTextInput
+          onChangeText={(e) => Object.assign(newProfileData, { facebook: e })}
+          placeholder="Facebook URL"
+        />
+        <OneLineTextInput
+          onChangeText={(e) => Object.assign(newProfileData, { twitter: e })}
+          placeholder="Twitter URL"
+        />
+        <OneLineTextInput
+          onChangeText={(e) => Object.assign(newProfileData, { tikTok: e })}
+          placeholder="TikTok URL"
+        />
+        <OneLineTextInput
+          onChangeText={(e) => Object.assign(newProfileData, { youTube: e })}
+          placeholder="YouTube URL"
+        />
+        <SubmitButton onPress={() => submitData()}> Submit </SubmitButton>
+        <Text>{JSON.stringify(profile)}</Text>
       </View>
+
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    width: "80%",
-    margin: 12,
-    padding: 10,
-    borderBottomWidth: 1,
-  },
   inputs: {
-    flex: 6,
+    paddingTop: 50,
     alignItems: "center",
+    justifyContent: "flex-start",
+    height: Layout.window.height,
   },
   container: {
-    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   title: {
     fontSize: 20,

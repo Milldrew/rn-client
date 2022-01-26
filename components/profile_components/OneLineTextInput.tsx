@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-import { TextInput } from "./Themed";
-import type { TextInputProps } from "./Themed";
+import { TextInput } from "../Themed";
+import type { TextInputProps } from "../Themed";
 
-export default function AuthTextInput(props: TextInputProps) {
+export default function OneLineTextInput(props: TextInputProps) {
   return (
     <TextInput
       placeholderTextColor="#909090"
@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
   input: {
     color: "#030303",
     backgroundColor: "#fefefe",
-    marginVertical: 4,
+    marginVertical: 7,
     paddingVertical: 9,
     paddingHorizontal: 9,
     fontSize: 26,
     width: "80%",
     borderWidth: 1,
-    borderRadius: 9,
+    borderRadius: 13,
   },
 });

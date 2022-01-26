@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   pressable: {
     borderWidth: 1,
+    borderRadius: 19,
     width: 200,
     backgroundColor: "#fa2",
     marginTop: 30,
