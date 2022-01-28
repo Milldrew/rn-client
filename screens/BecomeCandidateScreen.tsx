@@ -17,7 +17,7 @@ import ProfileSwitch from "../components/profile_components/ProfileSwitch";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { TextInput, Text, View } from "../components/Themed";
 
-export default function ModalScreen({ navigation }) {
+export default function BecomeCandidateScreen({ navigation }) {
   const [newProfileData, setNewProfileData] = useState({});
   const profile = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
@@ -64,12 +64,7 @@ export default function ModalScreen({ navigation }) {
             onChangeText={(e) => Object.assign(newProfileData, { youTube: e })}
             placeholder="YouTube URL"
           />
-          <SubmitButton onPress={() => submitData()}> Submit </SubmitButton>
-          <BecomeACandidate
-            onPress={() => navigation.navigate("BecomeCandidateScreen")}
-          >
-            Become a candidate
-          </BecomeACandidate>
+          <BecomeACandidate>Become a candidate</BecomeACandidate>
           <Text>{JSON.stringify(profile)}</Text>
         </View>
 

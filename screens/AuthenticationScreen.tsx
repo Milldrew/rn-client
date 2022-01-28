@@ -1,5 +1,10 @@
 import Layout from "../constants/Layout";
-import { setFirstName, setLastName } from "../redux/profileSlice";
+import {
+  setCongDistrict,
+  setFirstName,
+  setLastName,
+  setLegDistrict,
+} from "../redux/profileSlice";
 import { useEffect, useState } from "react";
 import AuthButton from "../components/AuthButton";
 import {
@@ -35,6 +40,8 @@ export default function AuthenticationScreen({
       console.log("AUTHENTICATED");
       dispatch(setFirstName(user.firstName));
       dispatch(setLastName(user.lastName));
+      dispatch(setCongDistrict(user.congDistrict));
+      dispatch(setLegDistrict(user.legDistrict));
       navigation.navigate("Root");
     } else {
       console.log("NOT AUTHENTICATED");

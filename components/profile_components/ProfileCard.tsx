@@ -25,20 +25,29 @@ export default function ProfileCard(props) {
       >
         {`${props.profileData.firstName} ${props.profileData.lastName}`}
       </Text>
-      <Text
-        style={styles.userStatus}
-        lightColor={Colors.light.tint}
-        darkColor={Colors.dark.tint}
-      >
-        User Type: {props.profileData.isCandidate ? "Candidate" : "Voter"}
-      </Text>
       <SocialMediaIcons profileData={props.profileData} />
       <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <View style={styles.aboutMeContainer}>
+        darkColor={Colors.neutral.forContrast}
+        lightColor={"#fff"}
+        style={styles.statusContainer}
+      >
+        <Text
+          style={styles.userStatus}
+          lightColor={Colors.light.tint}
+          darkColor={Colors.dark.tint}
+        >
+          User Type: {props.profileData.isCandidate ? "Candidate" : "Voter"}
+          {"\n"}
+          Legislative District: {props.profileData.legDistrict}
+          {"\n"}
+          Congressional District: {props.profileData.congDistrict}
+        </Text>
+      </View>
+      <View
+        darkColor={Colors.neutral.forContrast}
+        lightColor={"#fff"}
+        style={styles.aboutMeContainer}
+      >
         <Text
           style={styles.aboutMeHeader}
           lightColor="rgba(0,0,0,0.8)"
@@ -46,7 +55,11 @@ export default function ProfileCard(props) {
         >
           About Me:
         </Text>
-        <View style={styles.aboutMeContentContainer}>
+        <View
+          darkColor={Colors.neutral.forContrast}
+          lightColor={"#fff"}
+          style={styles.aboutMeContentContainer}
+        >
           <Text style={styles.aboutMeContent}>
             {"\n"}
 
@@ -54,6 +67,11 @@ export default function ProfileCard(props) {
           </Text>
         </View>
       </View>
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
     </View>
   );
 }
@@ -82,12 +100,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   userStatus: {
-    marginTop: 10,
+    lineHeight: 23,
+    margin: 10,
     fontSize: 14,
+    fontWeight: "900",
     textAlign: "left",
   },
   userName: {
-    marginTop: 10,
+    marginVertical: 15,
     fontWeight: "bold",
     fontSize: 24,
     textAlign: "center",
@@ -99,25 +119,30 @@ const styles = StyleSheet.create({
     borderRadius: 120,
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 15,
     height: 1,
     width: "100%",
   },
   aboutMeContentContainer: {
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    backgroundColor: Colors.neutral.forContrast,
     width: "100%",
-    borderRadius: 20,
+    borderRadius: 5,
     textAlign: "left",
+  },
+  statusContainer: {
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginVertical: 15,
+    width: "95%",
   },
   aboutMeContainer: {
     alignItems: "flex-start",
-    backgroundColor: Colors.neutral.forContrast,
-    width: "100%",
-    padding: 20,
+    width: "95%",
+    padding: 28,
     marginHorizontal: 20,
-    borderRadius: 20,
+    borderRadius: 5,
   },
   container: {
     justifyContent: "center",

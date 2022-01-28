@@ -12,7 +12,11 @@ export default function SocialMediaIcons(props) {
     WebBrowser.openBrowserAsync(link);
   }
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      lightColor={"#fff"}
+      darkColor={Colors.neutral.forContrast}
+    >
       <Pressable onPress={() => followLink(props.profileData.facebook)}>
         <Image
           source={require("../../assets/images/facebook-icon.png")}
@@ -50,10 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: Colors.neutral.forContrast,
     borderRadius: 5,
-    marginTop: 15,
     padding: 6,
+    width: "95%",
   },
   image: {
     marginHorizontal: 6,

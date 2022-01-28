@@ -23,6 +23,7 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import ProfileEditor from "../screens/ProfileEditor";
+import BecomeCandidateScreen from "../screens/BecomeCandidateScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import CandidatesScreen from "../screens/CandidatesScreen";
@@ -61,7 +62,7 @@ function RootNavigator() {
   const colorScheme = useColorScheme();
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/*  <Stack.Screen
         name="Authentication"
         component={AuthenticationScreen}
         options={({ navigation }) => ({
@@ -73,8 +74,8 @@ function RootNavigator() {
           ),
 
           headerShown: true,
-        })}
-      />
+        })} 
+      />*/}
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -84,6 +85,11 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
+      />
+      <Stack.Screen
+        name="BecomeCandidateScreen"
+        component={BecomeCandidateScreen}
+        options={{ title: "Become A Candidate" }}
       />
       <Stack.Screen
         name="ProfileEditor"

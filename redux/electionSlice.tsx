@@ -1,17 +1,24 @@
+import elections from "./elections.json";
 import createAuthAlert from "../components/AuthAlert";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User, SignUpPayload } from "./userTypes";
+
 /**
  * Users are retrieved by their localId which is provided by firebase authentication
  */
-type UserRef = String;
-type URL = String;
+type UserRef = {
+  localId: String;
+  firstName: String;
+  lastName: String;
+};
 
+type URL = String;
 /**
  *  This is a list of localId values used to reference users.
  */
 type EndorsedBy = UserRef[];
 export type Election = {
+  electionCode: String;
   name: String;
   date: String;
   year: String;
@@ -28,6 +35,7 @@ export type Profile = {
   /**
    * provided by user
    */
+  localId: String;
   aboutMe: String;
   firstName: String;
   lastName: String;
@@ -65,25 +73,11 @@ export type Profile = {
   endorsed: UserRef[];
 };
 
-const profileInitialState: Profile = {
-  aboutMe: "Press the pencil in the upper right",
-  firstName: "Andrew",
-  lastName: "Miller",
-  profileImageURL:
-    "https://miro.medium.com/fit/c/262/262/1*Yv52BZxhL5VV_1vYrrLXbA.png",
-  facebook: "https://facebook.com",
-  twitter: "https://twitter.com",
-  youTube: "https://youtube.com",
-  tikTok: "https://tiktok.com",
-  isCandidate: false,
-  congDistrict: 1,
-  legDistrict: 1,
-  electionName: "",
-  endorsed: [],
-  endorsedBy: [],
+const electionsInitialState: Election = {
+  elections: elections,
 };
 
-export const editProfileThunk = createAsyncThunk(
+export electionThunk = createAsyncThunk(
   "profile/editProfileThunk",
   async (profileData, thunkApi) => {
     console.log("HELLO FROM PROFILE THUNK");
