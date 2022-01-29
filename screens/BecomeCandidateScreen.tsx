@@ -1,96 +1,54 @@
-import { editProfileThunk } from "../redux/profileSlice";
-import SubmitButton from "../components/AuthButton.tsx";
-import BecomeACandidate from "../components/AuthButton.tsx";
-import Layout from "../constants/Layout";
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-  StyleSheet,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import OneLineTextInput from "../components/profile_components/OneLineTextInput";
-import ProfileSwitch from "../components/profile_components/ProfileSwitch";
-
-import EditScreenInfo from "../components/EditScreenInfo";
-import { TextInput, Text, View } from "../components/Themed";
-
-export default function BecomeCandidateScreen({ navigation }) {
-  const [newProfileData, setNewProfileData] = useState({});
-  const profile = useSelector((state: RootState) => state.profile);
-  const dispatch = useDispatch();
-  async function submitData() {
-    setNewProfileData(newProfileData);
-    console.log("hello");
-    console.log(JSON.stringify(newProfileData));
-
-    try {
-      await dispatch(editProfileThunk(newProfileData));
-      navigation.navigate("Root");
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  return (
-    <ScrollView>
-      <KeyboardAvoidingView behavior="position">
-        <View style={styles.container}></View>
-        <View style={styles.inputs}>
-          <OneLineTextInput
-            onChangeText={(e) => Object.assign(newProfileData, { aboutMe: e })}
-            placeholder="About me"
-          />
-          <OneLineTextInput
-            onChangeText={(e) =>
-              Object.assign(newProfileData, { profileImageURL: e })
-            }
-            placeholder="Profile Image URL"
-          />
-          <OneLineTextInput
-            onChangeText={(e) => Object.assign(newProfileData, { facebook: e })}
-            placeholder="Facebook URL"
-          />
-          <OneLineTextInput
-            onChangeText={(e) => Object.assign(newProfileData, { twitter: e })}
-            placeholder="Twitter URL"
-          />
-          <OneLineTextInput
-            onChangeText={(e) => Object.assign(newProfileData, { tikTok: e })}
-            placeholder="TikTok URL"
-          />
-          <OneLineTextInput
-            onChangeText={(e) => Object.assign(newProfileData, { youTube: e })}
-            placeholder="YouTube URL"
-          />
-          <BecomeACandidate>Become a candidate</BecomeACandidate>
-          <Text>{JSON.stringify(profile)}</Text>
-        </View>
-
-        <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-      </KeyboardAvoidingView>
-    </ScrollView>
-  );
-}
+import React from "react";
+import { SectionList, StyleSheet, Text, View } from "react-native";
 
 const styles = StyleSheet.create({
-  inputs: {
-    paddingTop: 50,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: Layout.window.height,
-  },
   container: {
-    alignItems: "center",
-    justifyContent: "flex-start",
+    flex: 1,
+    paddingTop: 22,
   },
-  title: {
-    fontSize: 20,
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
     fontWeight: "bold",
+    backgroundColor: "rgba(247,247,247,1.0)",
   },
-  separator: {
-    height: 1,
-    width: "80%",
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
 });
+
+const SectionListBasics = () => {
+  return (
+    <View style={styles.container}>
+      <SectionList
+        sections={[
+          { title: "D", data: ["Devin", "Dan", "Dominic"] },
+          {
+            title: "J",
+            data: [
+              "Jackson",
+              "James",
+              "Jillian",
+              "Jimmy",
+              "Joel",
+              "John",
+              "Julie",
+            ],
+          },
+        ]}
+        renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+        renderSectionHeader={({ section }) => (
+          <Text style={styles.sectionHeader}>{section.title}</Text>
+        )}
+        keyExtractor={(item, index) => index}
+      />
+    </View>
+  );
+};
+
+export default SectionListBasics;

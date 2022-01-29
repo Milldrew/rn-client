@@ -38,6 +38,11 @@ export default function ModalScreen({ navigation }) {
       <KeyboardAvoidingView behavior="position">
         <View style={styles.container}></View>
         <View style={styles.inputs}>
+          <BecomeACandidate
+            onPress={() => navigation.navigate("BecomeCandidateScreen")}
+          >
+            Become a Candidate
+          </BecomeACandidate>
           <OneLineTextInput
             onChangeText={(e) => Object.assign(newProfileData, { aboutMe: e })}
             placeholder="About me"
@@ -65,11 +70,6 @@ export default function ModalScreen({ navigation }) {
             placeholder="YouTube URL"
           />
           <SubmitButton onPress={() => submitData()}> Submit </SubmitButton>
-          <BecomeACandidate
-            onPress={() => navigation.navigate("BecomeCandidateScreen")}
-          >
-            Become a candidate
-          </BecomeACandidate>
           <Text>{JSON.stringify(profile)}</Text>
         </View>
 

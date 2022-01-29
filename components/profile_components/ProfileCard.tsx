@@ -82,7 +82,7 @@ function handleHelpPress() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   profileBackground: {
     alignItems: "center",
     width: "100%",
