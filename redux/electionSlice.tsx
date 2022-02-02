@@ -85,11 +85,30 @@ const electionsInitialState: Election[] = [
 export const getElectionsThunk = createAsyncThunk(
   "election/getElectionsThunk",
   async (profileData, thunkApi) => {
-    console.log("HELL FROM GET ELECTION THUNK");
+    console.log("HELLO FROM GET ELECTION THUNK");
 
     const { getState, rejectWithValue } = thunkApi;
     console.log("state logged bellow");
-    console.log(JSON.stringify(getState));
+    const { profile, user } = getState;
+    console.log(JSON.stringify(getState()));
+    const postUserPayload = await fetch(
+      `https://quantum-hash-330314-default-rtdb.firebaseio.com/users/${userData.localId}.json`,
+      {
+        method: "Put",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
+    const jsonPayload = await postUserPayload.json();
+    console.log({ jsonPayload });
+    console.log("thunk again");
+    const { name: dbUserId } = jsonPayload;
+    Object.assign(userData, { dbUserId });
+    console.log(
+      `USERDATA GOIN INTO DISK SPACE DATABASE ${JSON.stringify(userData)}`
+    );
   }
 );
 

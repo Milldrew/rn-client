@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User, SignUpPayload } from "./userTypes";
 
 export interface UserState {
-  userId: string;
+  localId: string;
   voterId: string;
   firstName: string;
   zipCode: number;
@@ -15,7 +15,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  userId: "",
+  localId: "",
   voterId: "",
   firstName: "",
   zipCode: NaN,

@@ -27,25 +27,27 @@ const styles = StyleSheet.create({
 
 const SectionListBasics = () => {
   const dispatch = useDispatch();
+  const profile = useSelector((state: RootState) => state.profile);
   const elections = useSelector((state: RootState) => state.elections);
   useEffect(() => {
+    console.log({ profile });
+    console.log({ elections });
     dispatch(getElectionsThunk());
   }, [elections]);
   return (
     <View style={styles.container}>
       <SectionList
         sections={[
-          { title: "Federal", data: ["Devin", "Dan", "Dominic"] },
+          {
+            title: "Federal",
+            data: ["US Senate", `US House  District ${profile.congDistrict}`],
+          },
           {
             title: "State",
             data: [
-              "Jackson",
-              "James",
-              "Jillian",
-              "Jimmy",
-              "Joel",
-              "John",
-              "Julie",
+              `ID Senate District ${profile.legDistrict}`,
+              `ID House Seat A District ${profile.legDistrict}`,
+              `ID House Seat B District ${profile.legDistrict}`,
             ],
           },
         ]}
