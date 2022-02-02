@@ -18,7 +18,6 @@ type URL = String;
  */
 type EndorsedBy = UserRef[];
 export type Election = {
-  electionCode: String;
   name: String;
   date: String;
   year: String;
@@ -73,48 +72,41 @@ export type Profile = {
   endorsed: UserRef[];
 };
 
-const electionsInitialState: Election = {
-  elections: elections,
-};
+const electionsInitialState: Election[] = [
+  {
+    name: "mock election",
+    date: "election date",
+    year: "election year",
+    candidates: ["candidate profile"],
+    candidateSupport: { candidatesName: "array of endorsments" },
+  },
+];
 
-export electionThunk = createAsyncThunk(
-  "profile/editProfileThunk",
+export const getElectionsThunk = createAsyncThunk(
+  "election/getElectionsThunk",
   async (profileData, thunkApi) => {
-    console.log("HELLO FROM PROFILE THUNK");
+    console.log("HELL FROM GET ELECTION THUNK");
+
     const { getState, rejectWithValue } = thunkApi;
-    console.log({ profileData });
-    return profileData;
+    console.log("state logged bellow");
+    console.log(JSON.stringify(getState));
   }
 );
 
 function capitalize(word) {
   return word[0] + word.slice(1).toLowerCase();
 }
-export const profileSlice = createSlice({
-  name: "profile",
-  initialState: profileInitialState,
-  reducers: {
-    setLastName(state, action) {
-      state.lastName = capitalize(action.payload);
-    },
-    setFirstName(state, action) {
-      state.firstName = capitalize(action.payload);
-    },
-    setLegDistrict(state, action) {
-      console.log("set leg");
-      state.legDistrict = capitalize(action.payload);
-    },
-    setCongDistrict(state, action) {
-      console.log("set cong");
-      state.congDistrict = capitalize(action.payload);
-    },
-  },
+export const electionSlice = createSlice({
+  name: "elections",
+  initialState: electionsInitialState,
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(editProfileThunk.rejected, (state, action) => {
+    builder.addCase(getElectionsThunk.rejected, (state, action) => {
+      console.log("Hellof rom rejected reducer");
       createAuthAlert("Error", action.payload);
       Object.assign(state, { error: action.payload });
     });
-    builder.addCase(editProfileThunk.fulfilled, (state, action) => {
+    builder.addCase(getElectionsThunk.fulfilled, (state, action) => {
       console.log("hello from fulfiled");
       console.log(JSON.stringify(action.payload));
       Object.assign(state, action.payload);
@@ -123,6 +115,6 @@ export const profileSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export default profileSlice.reducer;
-export const { setCongDistrict, setLegDistrict, setLastName, setFirstName } =
-  profileSlice.actions;
+export default electionSlice.reducer;
+// export const { setCongDistrict, setLegDistrict, setLastName, setFirstName } =
+electionSlice.actions;

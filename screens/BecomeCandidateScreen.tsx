@@ -1,6 +1,9 @@
+import { getElectionsThunk } from "../redux/electionSlice";
+import { useEffect } from "react";
 import React from "react";
 import { SectionList, StyleSheet, Text, View } from "react-native";
 
+import { useDispatch, useSelector } from "react-redux";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,13 +26,18 @@ const styles = StyleSheet.create({
 });
 
 const SectionListBasics = () => {
+  const dispatch = useDispatch();
+  const elections = useSelector((state: RootState) => state.elections);
+  useEffect(() => {
+    dispatch(getElectionsThunk());
+  }, [elections]);
   return (
     <View style={styles.container}>
       <SectionList
         sections={[
-          { title: "D", data: ["Devin", "Dan", "Dominic"] },
+          { title: "Federal", data: ["Devin", "Dan", "Dominic"] },
           {
-            title: "J",
+            title: "State",
             data: [
               "Jackson",
               "James",
@@ -47,6 +55,7 @@ const SectionListBasics = () => {
         )}
         keyExtractor={(item, index) => index}
       />
+      <Text>{JSON.stringify(elections)}</Text>
     </View>
   );
 };
